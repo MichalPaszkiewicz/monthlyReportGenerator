@@ -43,8 +43,10 @@ function generateReport(graphs){
 		charts += h2String + fullString.w("div",'style="height:300px"');
 	}
 				
-	var body = "Test file".w("h1")
+	var mainContainer = "Test file".w("h1")
 				+ charts;
+				
+	var body = mainContainer.w("div", 'id="main-container"') + "html,body{min-height:100%;width:100%;margin:0;padding:0;}#main-container{padding:20px;}h1,h2{text-align:center;}".w("style");
 
 	var fullHtml = (head.w("head") + body.w("body")).w("html");
 
