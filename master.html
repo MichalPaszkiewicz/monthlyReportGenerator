@@ -6,19 +6,52 @@
 	</head>
 	<body>
 		
-		<div id="main-container">
-			<div id="header"><h1>Report by month</h1></div>
+		<div class="main-container" id="first" >
+			<div class="header"><h1>Report by month</h1></div>
+				<div onclick="toggle()" class="button">View report by item</div>
+				
+				{MAIN-REPORT}
 			
-			{REPORT}
-			
-		</div>
+			</div>
 		<div id="footer"></div>
+		
+		
+		<div class="main-container hidden" id="second">
+			<div class="header"><h1>Report by item</h1></div>
+				<div onclick="toggle()" class="button">View report by month</div>
+				
+				{SECOND-REPORT}
+			
+			</div>
+		</div>
 		
 		<style>
 			{STYLES}
 		</style>
 		
 		<script>
+			var showFirst = true;
+			function toggle(){
+				var first = document.getElementById("first");
+				var second = document.getElementById("second");
+				
+				showFirst = !showFirst;
+				
+				if(showFirst){
+					first.className = first.className.replace(" hidden", "");
+					second.className += " hidden";
+
+				}
+				else{
+					first.className += " hidden";
+					second.className = second.className.replace(" hidden", "");
+				}			
+
+				for(var i = 0; i < Plot.plotManager.plots.length; i++){
+					Plot.plotManager.plots[i].draw();
+				}
+			}
+		
 			for(var i = 0; i < Plot.plotManager.plots.length; i++){
 				var plot = Plot.plotManager.plots[i];
 				

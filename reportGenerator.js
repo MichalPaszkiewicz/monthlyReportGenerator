@@ -20,30 +20,60 @@ for(var i = 0; i < process.argv.length; i++){
 	}
 }
 
+var graphData = {};
+
+function generateReportByValues(graphs, i){
+	var h2String = graphs[i].name.w("h2");
+	
+	var chartString = w("canvas",'id="my-bar' + i + '"');
+	
+	var tempString = "\n";
+	
+	tempString += "var data" + i + " = "
+	tempString += JSON.stringify(graphs[i].data);
+	tempString += "\nvar options" + i + " = {};";
+	tempString += "\nvar bar" + i + " = new Plot.Bar('my-bar" + i + "', data" + i + ", options" + i + ");";
+	
+	var fullString = chartString + tempString.w("script");
+	
+	return (h2String + fullString.w("div",'class="chart-box"')).w("div",'class="data-box"');
+}
+
+function generateReportByKey(item, i){
+	var h2String = i.w("h2");
+	
+	var chartString = w("canvas",'id="my-bar-s-' + i.replace(/ /g,'') + '"');
+	
+	var tempString = "\n";
+	
+	tempString += "var data" + i.replace(/ /g,'') + " = "
+	tempString += JSON.stringify(item[i]);
+	tempString += "\nvar options" + i.replace(/ /g,'') + " = {};";
+	tempString += "\nvar bar" + i.replace(/ /g,'') + " = new Plot.Bar('my-bar-s-" + i.replace(/ /g,'') + "', data" + i.replace(/ /g,'') + ", options" + i.replace(/ /g,'') + ");";
+	
+	var fullString = chartString + tempString.w("script");
+	
+	return (h2String + fullString.w("div",'class="chart-box"')).w("div",'class="data-box"');
+}
+
 function generateReport(graphs, master){
- 
 	var charts = "";
 				
-	for(var i = 0; i < graphs.length; i++){
-		var h2String = graphs[i].name.w("h2");
-		
-		var chartString = w("canvas",'id="my-bar' + i + '"');
-		
-		var tempString = "\n";
-		
-		tempString += "var data" + i + " = "
-		tempString += JSON.stringify(graphs[i].data);
-		tempString += "\nvar options" + i + " = {};";
-		tempString += "\nvar bar" + i + " = new Plot.Bar('my-bar" + i + "', data" + i + ", options" + i + ");";
-		
-		var fullString = chartString + tempString.w("script");
-		
-		charts += (h2String + fullString.w("div",'class="chart-box"')).w("div",'class="data-box"');
+	for(var i = 0; i < graphs.length; i++){	
+		charts += generateReportByValues(graphs, i);
 	}
 				
-	var body = charts.w("div", 'id="chart-container"');
+	var mainReport = charts.w("div", 'class="chart-container"');
+	
+	charts = "";
+	
+	for(var i in graphData){
+		charts += generateReportByKey(graphData, i);
+	}
+	
+	var secondReport = charts.w("div", 'class="chart-container"');
 
-	master = master.replace("{REPORT}", body);
+	master = master.replace("{MAIN-REPORT}", mainReport).replace("{SECOND-REPORT}", secondReport);
 	
 	fs.writeFile("test.html", master, function(err) {
 		if(err) {
@@ -67,7 +97,7 @@ function getMasterAndGenerateReport(graphs, styles){
 	});
 }
 
-function getStylesAndGenerateReport(graphs){
+function getStylesAndGenerateReports(graphs){
 	fs.readFile('styles.css', function(err, data){
 		if(err){ throw err; }
 		console.log("Get styles");
@@ -84,6 +114,8 @@ function getAllData(){
 		var newData = JSON.parse(data);
 		
 		var items = [];
+		
+		graphData = newData;
 		
 		for(var i in newData){
 			for(var j in newData[i]){
@@ -111,7 +143,7 @@ function getAllData(){
 			graphs.push({name: items[i], data: tempGraph});
 		}
 		
-		getStylesAndGenerateReport(graphs);
+		getStylesAndGenerateReports(graphs);
 	});
 }
 

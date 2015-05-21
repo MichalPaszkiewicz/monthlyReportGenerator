@@ -6,17 +6,18 @@
 	</head>
 	<body>
 		
-		<div id="main-container">
-			<div id="header"><h1>Report by month</h1></div>
-			
-			
-<div id="chart-container">
+		<div class="main-container" id="first" >
+			<div class="header"><h1>Report by month</h1></div>
+				<div onclick="toggle()" class="button">View report by item</div>
+				
+				
+<div class="chart-container">
 	<div class="data-box">
 		<h2 >January</h2>
 		<div class="chart-box">
 			<canvas id="my-bar0"></canvas>
 			<script >
-				var data0 = {"one two the":123,"never ever":4,"her and me":43,"other peope":110,"exciting stuff":220}
+				var data0 = {"one two the":123,"never ever":4,"her and me":43,"other peope":110,"exciting stuff":220,"that project":48}
 				var options0 = {};
 				var bar0 = new Plot.Bar('my-bar0', data0, options0);</script></div></div>
 	<div class="data-box">
@@ -24,7 +25,7 @@
 		<div class="chart-box">
 			<canvas id="my-bar1"></canvas>
 			<script >
-				var data1 = {"one two the":123,"never ever":45,"her and me":23,"other peope":5005,"exciting stuff":1040}
+				var data1 = {"one two the":123,"never ever":45,"her and me":23,"other peope":5005,"exciting stuff":1040,"that project":594}
 				var options1 = {};
 				var bar1 = new Plot.Bar('my-bar1', data1, options1);</script></div></div>
 	<div class="data-box">
@@ -32,33 +33,100 @@
 		<div class="chart-box">
 			<canvas id="my-bar2"></canvas>
 			<script >
-				var data2 = {"one two the":32,"never ever":23,"her and me":89,"other peope":24,"exciting stuff":72}
+				var data2 = {"one two the":32,"never ever":23,"her and me":89,"other peope":24,"exciting stuff":72,"that project":55}
 				var options2 = {};
-				var bar2 = new Plot.Bar('my-bar2', data2, options2);</script></div></div></div>
+				var bar2 = new Plot.Bar('my-bar2', data2, options2);</script></div></div>
+	<div class="data-box">
+		<h2 >April</h2>
+		<div class="chart-box">
+			<canvas id="my-bar3"></canvas>
+			<script >
+				var data3 = {"one two the":5,"never ever":2,"her and me":4,"other peope":2,"exciting stuff":4,"that project":7}
+				var options3 = {};
+				var bar3 = new Plot.Bar('my-bar3', data3, options3);</script></div></div></div>
 			
-		</div>
+			</div>
 		<div id="footer"></div>
+		
+		
+		<div class="main-container hidden" id="second">
+			<div class="header"><h1>Report by item</h1></div>
+				<div onclick="toggle()" class="button">View report by month</div>
+				
+				
+<div class="chart-container">
+	<div class="data-box">
+		<h2 >one two the</h2>
+		<div class="chart-box">
+			<canvas id="my-bar-s-onetwothe"></canvas>
+			<script >
+				var dataonetwothe = {"January":123,"February":123,"March":32,"April":5}
+				var optionsonetwothe = {};
+				var baronetwothe = new Plot.Bar('my-bar-s-onetwothe', dataonetwothe, optionsonetwothe);</script></div></div>
+	<div class="data-box">
+		<h2 >never ever</h2>
+		<div class="chart-box">
+			<canvas id="my-bar-s-neverever"></canvas>
+			<script >
+				var dataneverever = {"January":4,"February":45,"March":23,"April":2}
+				var optionsneverever = {};
+				var barneverever = new Plot.Bar('my-bar-s-neverever', dataneverever, optionsneverever);</script></div></div>
+	<div class="data-box">
+		<h2 >her and me</h2>
+		<div class="chart-box">
+			<canvas id="my-bar-s-herandme"></canvas>
+			<script >
+				var dataherandme = {"January":43,"February":23,"March":89,"April":4}
+				var optionsherandme = {};
+				var barherandme = new Plot.Bar('my-bar-s-herandme', dataherandme, optionsherandme);</script></div></div>
+	<div class="data-box">
+		<h2 >other peope</h2>
+		<div class="chart-box">
+			<canvas id="my-bar-s-otherpeope"></canvas>
+			<script >
+				var dataotherpeope = {"January":110,"February":5005,"March":24,"April":2}
+				var optionsotherpeope = {};
+				var barotherpeope = new Plot.Bar('my-bar-s-otherpeope', dataotherpeope, optionsotherpeope);</script></div></div>
+	<div class="data-box">
+		<h2 >exciting stuff</h2>
+		<div class="chart-box">
+			<canvas id="my-bar-s-excitingstuff"></canvas>
+			<script >
+				var dataexcitingstuff = {"January":220,"February":1040,"March":72,"April":4}
+				var optionsexcitingstuff = {};
+				var barexcitingstuff = new Plot.Bar('my-bar-s-excitingstuff', dataexcitingstuff, optionsexcitingstuff);</script></div></div>
+	<div class="data-box">
+		<h2 >that project</h2>
+		<div class="chart-box">
+			<canvas id="my-bar-s-thatproject"></canvas>
+			<script >
+				var datathatproject = {"January":48,"February":594,"March":55,"April":7}
+				var optionsthatproject = {};
+				var barthatproject = new Plot.Bar('my-bar-s-thatproject', datathatproject, optionsthatproject);</script></div></div></div>
+			
+			</div>
+		</div>
 		
 		<style>
 			
 html,body{
 	min-height:100%;width:100%;margin:0;padding:0;font-family:'Poiret One', cursive;
 }
-#main-container{
-	
+.main-container{
+	min-height: 100%;
 }
 
-#chart-container{
-	padding:20px;
+.chart-container{
+
 }
 
-#header{
+.header{
 	background: black;
 	color: white;
 	height: 50px;
 }
 
-#header h1{
+.header h1{
 	margin: 0;
 	height: 50px;
 	line-height: 50px;
@@ -80,9 +148,53 @@ h1,h2{
 .chart-box{
 	height: 300px;
 }
+
+.hidden{
+	display: none;
+}
+
+.button{
+	margin: 20px auto;
+	width: 100%;
+	max-width: 300px;
+	text-align: center;
+	background: rgb(101, 109, 140);
+	padding: 20px;
+	color: white;
+	font-weight: 800;
+	font-size: 20px;
+	border-radius: 20px;
+	cursor: pointer;
+}
+
+.button:hover{
+	background: rgb(67, 73, 95);
+}
 		</style>
 		
 		<script>
+			var showFirst = true;
+			function toggle(){
+				var first = document.getElementById("first");
+				var second = document.getElementById("second");
+				
+				showFirst = !showFirst;
+				
+				if(showFirst){
+					first.className = first.className.replace(" hidden", "");
+					second.className += " hidden";
+
+				}
+				else{
+					first.className += " hidden";
+					second.className = second.className.replace(" hidden", "");
+				}			
+
+				for(var i = 0; i < Plot.plotManager.plots.length; i++){
+					Plot.plotManager.plots[i].draw();
+				}
+			}
+		
 			for(var i = 0; i < Plot.plotManager.plots.length; i++){
 				var plot = Plot.plotManager.plots[i];
 				
