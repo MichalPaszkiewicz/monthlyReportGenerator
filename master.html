@@ -1,0 +1,37 @@
+<html>
+	<head>
+		<script src="http://www.michalpaszkiewicz.co.uk/plotjs/plotjs.js"></script>
+		<link href="http://fonts.googleapis.com/css?family=Poiret+One" rel="stylesheet" type="text/css">
+		<title>Report by month</title>
+	</head>
+	<body>
+		
+		<div id="main-container">
+			<div id="header"><h1>Report by month</h1></div>
+			
+			{REPORT}
+			
+		</div>
+		<div id="footer"></div>
+		
+		<style>
+			{STYLES}
+		</style>
+		
+		<script>
+			for(var i = 0; i < Plot.plotManager.plots.length; i++){
+				var plot = Plot.plotManager.plots[i];
+				
+				if(i > 0){
+					for(var j = 0; j < plot.data.length; j++){
+						for(var k = 0; k < Plot.plotManager.plots[0].data.length; k++){
+							if(Plot.plotManager.plots[0].data[k].key == plot.data[j].key){
+								plot.data[j].colour = Plot.plotManager.plots[0].data[k].colour;
+							}
+						}			
+					}
+				}
+			}
+		</script>
+	</body>
+</html>

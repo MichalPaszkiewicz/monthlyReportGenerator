@@ -1,35 +1,101 @@
-
-<html >
-	<head >
-		<title >Test</title>
-		<script src="http://www.michalpaszkiewicz.co.uk/plotjs/plotjs.js"></script></head>
-	<body >
-		<h1 >Test file</h1>
+<html>
+	<head>
+		<script src="http://www.michalpaszkiewicz.co.uk/plotjs/plotjs.js"></script>
+		<link href="http://fonts.googleapis.com/css?family=Poiret+One" rel="stylesheet" type="text/css">
+		<title>Report by month</title>
+	</head>
+	<body>
+		
+		<div id="main-container">
+			<div id="header"><h1>Report by month</h1></div>
+			
+			
+<div id="chart-container">
+	<div class="data-box">
 		<h2 >January</h2>
-		<div style="height:300px">
+		<div class="chart-box">
 			<canvas id="my-bar0"></canvas>
 			<script >
-				var data0 = {"fly":123,"run":39,"what":84,"yello":83}
+				var data0 = {"one two the":123,"never ever":4,"her and me":43,"other peope":110,"exciting stuff":220}
 				var options0 = {};
-				var bar0 = new Plot.Bar('my-bar0', data0, options0);</script></div>
+				var bar0 = new Plot.Bar('my-bar0', data0, options0);</script></div></div>
+	<div class="data-box">
 		<h2 >February</h2>
-		<div style="height:300px">
+		<div class="chart-box">
 			<canvas id="my-bar1"></canvas>
 			<script >
-				var data1 = {"fly":32,"run":93,"what":89,"yello":83}
+				var data1 = {"one two the":123,"never ever":45,"her and me":23,"other peope":5005,"exciting stuff":1040}
 				var options1 = {};
-				var bar1 = new Plot.Bar('my-bar1', data1, options1);</script></div>
+				var bar1 = new Plot.Bar('my-bar1', data1, options1);</script></div></div>
+	<div class="data-box">
 		<h2 >March</h2>
-		<div style="height:300px">
+		<div class="chart-box">
 			<canvas id="my-bar2"></canvas>
 			<script >
-				var data2 = {"fly":74,"run":123,"what":32,"yello":93}
+				var data2 = {"one two the":32,"never ever":23,"her and me":89,"other peope":24,"exciting stuff":72}
 				var options2 = {};
-				var bar2 = new Plot.Bar('my-bar2', data2, options2);</script></div>
-		<h2 >April</h2>
-		<div style="height:300px">
-			<canvas id="my-bar3"></canvas>
-			<script >
-				var data3 = {"fly":12,"run":74,"what":1004,"yello":12}
-				var options3 = {};
-				var bar3 = new Plot.Bar('my-bar3', data3, options3);</script></div></body></html>
+				var bar2 = new Plot.Bar('my-bar2', data2, options2);</script></div></div></div>
+			
+		</div>
+		<div id="footer"></div>
+		
+		<style>
+			
+html,body{
+	min-height:100%;width:100%;margin:0;padding:0;font-family:'Poiret One', cursive;
+}
+#main-container{
+	
+}
+
+#chart-container{
+	padding:20px;
+}
+
+#header{
+	background: black;
+	color: white;
+	height: 50px;
+}
+
+#header h1{
+	margin: 0;
+	height: 50px;
+	line-height: 50px;
+}
+
+h1,h2{
+	text-align:center;
+}
+
+.data-box{
+	background: rgb(226, 224, 255);
+	width: 90%;
+	padding: 20px;
+	max-width: 800px;
+	margin: 50px auto;
+	border-radius: 20px;
+}
+
+.chart-box{
+	height: 300px;
+}
+		</style>
+		
+		<script>
+			for(var i = 0; i < Plot.plotManager.plots.length; i++){
+				var plot = Plot.plotManager.plots[i];
+				
+				if(i > 0){
+					for(var j = 0; j < plot.data.length; j++){
+						for(var k = 0; k < Plot.plotManager.plots[0].data.length; k++){
+							if(Plot.plotManager.plots[0].data[k].key == plot.data[j].key){
+								plot.data[j].colour = Plot.plotManager.plots[0].data[k].colour;
+							}
+						}			
+					}
+				}
+			}
+		</script>
+	</body>
+</html>

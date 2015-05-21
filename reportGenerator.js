@@ -20,10 +20,8 @@ for(var i = 0; i < process.argv.length; i++){
 	}
 }
 
-function generateReport(graphs){
-	var head = "Test".w("title")
-				+ '\n<script src="http://www.michalpaszkiewicz.co.uk/plotjs/plotjs.js"></script>'
-	 
+function generateReport(graphs, master){
+ 
 	var charts = "";
 				
 	for(var i = 0; i < graphs.length; i++){
@@ -40,23 +38,42 @@ function generateReport(graphs){
 		
 		var fullString = chartString + tempString.w("script");
 		
-		charts += h2String + fullString.w("div",'style="height:300px"');
+		charts += (h2String + fullString.w("div",'class="chart-box"')).w("div",'class="data-box"');
 	}
 				
-	var mainContainer = "Test file".w("h1")
-				+ charts;
-				
-	var body = mainContainer.w("div", 'id="main-container"') + "html,body{min-height:100%;width:100%;margin:0;padding:0;}#main-container{padding:20px;}h1,h2{text-align:center;}".w("style");
+	var body = charts.w("div", 'id="chart-container"');
 
-	var fullHtml = (head.w("head") + body.w("body")).w("html");
-
-	fs.writeFile("test.html", fullHtml, function(err) {
+	master = master.replace("{REPORT}", body);
+	
+	fs.writeFile("test.html", master, function(err) {
 		if(err) {
 			return console.log(err);
 		}
 
 		console.log("The file was saved!");
 	}); 
+}
+
+function getMasterAndGenerateReport(graphs, styles){
+	fs.readFile('master.html', function(err, data){
+		if(err){ throw err; }
+		console.log("Get master");
+		
+		var masterString = data.toString();
+		
+		masterString = masterString.replace("{STYLES}", styles);
+		
+		generateReport(graphs, masterString); 
+	});
+}
+
+function getStylesAndGenerateReport(graphs){
+	fs.readFile('styles.css', function(err, data){
+		if(err){ throw err; }
+		console.log("Get styles");
+		
+		getMasterAndGenerateReport(graphs, "\n" + data.toString());
+	});
 }
 			
 function getAllData(){
@@ -94,7 +111,7 @@ function getAllData(){
 			graphs.push({name: items[i], data: tempGraph});
 		}
 		
-		generateReport(graphs);
+		getStylesAndGenerateReport(graphs);
 	});
 }
 
